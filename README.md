@@ -10,12 +10,12 @@ This project contains a benchmark that compares the serialization / deserializat
 The following table contains the benchmarks result:
 ```
 Benchmark                       Mode  Cnt       Score       Error  Units
-Avro4kBenchmark.clients        thrpt    3   29557,032 ±  3002,497  ops/s
-Avro4kBenchmark.users          thrpt    3  290324,243 ± 23988,233  ops/s
-Avro4kDirectBenchmark.clients  thrpt    3  583662,180 ± 68148,244  ops/s
-Avro4kDirectBenchmark.users    thrpt    3  425400,322 ± 29352,531  ops/s
-JacksonBenchmark.clients       thrpt    3  239120,408 ± 22238,596  ops/s
-JacksonBenchmark.users         thrpt    3  304450,006 ± 63307,328  ops/s
+Avro4kBenchmark.clients        thrpt   10   30098,735 ±   367,147  ops/s
+Avro4kBenchmark.users          thrpt   10  365203,063 ±  4513,715  ops/s
+Avro4kDirectBenchmark.clients  thrpt   10  580846,822 ±  6803,729  ops/s
+Avro4kDirectBenchmark.users    thrpt   10  525127,635 ±  4431,561  ops/s
+JacksonBenchmark.clients       thrpt   10  240452,160 ± 10799,963  ops/s
+JacksonBenchmark.users         thrpt   10  341116,523 ±  5938,359  ops/s
 ```
 
 ## Run the benchmark locally

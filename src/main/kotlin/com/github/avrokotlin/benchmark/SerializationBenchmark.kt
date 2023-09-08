@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 
 
 @State(Scope.Benchmark)
-@Warmup(iterations = 1)
-@Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 3)
+@Measurement(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
 abstract class SerializationBenchmark {
     lateinit var clients: Clients
     lateinit var users: Users
