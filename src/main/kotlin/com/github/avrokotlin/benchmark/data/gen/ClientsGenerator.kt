@@ -28,12 +28,8 @@ object ClientsGenerator : DataGenerator<Clients> {
         expectedSize += 9 + u.id.toString().length // ,'id':''
         u.index = (RandomUtils.nextInt(0, Int.MAX_VALUE))
         expectedSize += 11 + u.index.toString().length // ,'index':''
-        u.guid = (RandomUtils.nextUUID())
-        expectedSize += 10 + 36 // ,'guid':''
         u.isActive = (RandomUtils.nextInt(0, 2) == 1)
         expectedSize += 17 + if (u.isActive) 4 else 5 // ,'isActive':''
-        u.balance = (RandomUtils.randomBigDecimal())
-        expectedSize += 16 + u.balance!!.toPlainString().length // ,'balance':''
         u.picture = RandomUtils.randomBytes(4048)
         expectedSize += 16 + u.picture!!.size // ,'picture':''
         u.age = (RandomUtils.nextInt(0, 100))

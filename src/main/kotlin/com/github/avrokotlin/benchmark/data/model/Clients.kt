@@ -22,12 +22,7 @@ data class Clients(
 data class Client(
     var id: Long = 0,
     var index: Int = 0,
-    @Serializable(with = UUIDSerializer::class)
-    var guid: UUID? = null,
     var isActive: Boolean = false,
-    @Serializable(with = BigDecimalSerializer::class)
-    @ScalePrecision(5,10)
-    var balance: BigDecimal? = null,
     var picture: ByteArray? = null,
     var age: Int = 0,
     var eyeColor: EyeColor? = null,

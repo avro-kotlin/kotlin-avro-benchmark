@@ -17,7 +17,6 @@ class Avro4kDirectBenchmark : SerializationBenchmark() {
     override fun setupOutput() {
         super.setupOutput()
         avroEncoder = AvroBinaryEncoder(Buffer())
-        avroEncoder.writeInt(1)
     }
 
     @Setup
