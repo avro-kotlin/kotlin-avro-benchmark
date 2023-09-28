@@ -9,13 +9,20 @@ This project contains a benchmark that compares the serialization / deserializat
 
 The following table contains the benchmarks result:
 ```
-Benchmark                       Mode  Cnt       Score       Error  Units
-Avro4kBenchmark.clients        thrpt   10   30098,735 ±   367,147  ops/s
-Avro4kBenchmark.users          thrpt   10  365203,063 ±  4513,715  ops/s
-Avro4kDirectBenchmark.clients  thrpt   10  580846,822 ±  6803,729  ops/s
-Avro4kDirectBenchmark.users    thrpt   10  525127,635 ±  4431,561  ops/s
-JacksonBenchmark.clients       thrpt   10  240452,160 ± 10799,963  ops/s
-JacksonBenchmark.users         thrpt   10  341116,523 ±  5938,359  ops/s
+Benchmark                             Mode  Cnt       Score       Error  Units
+DeserializationAvro4k.clients        thrpt    5   69112,726 ±  1142,820  ops/s
+DeserializationAvro4k.users          thrpt    5  198955,534 ±  3460,397  ops/s
+DeserializationAvro4kDirect.clients  thrpt    5  467419,904 ±  5076,498  ops/s
+DeserializationAvro4kDirect.users    thrpt    5  362091,092 ±  4585,828  ops/s
+DeserializationJackson.clients       thrpt    5  187465,951 ±  2305,600  ops/s
+DeserializationJackson.users         thrpt    5  127586,528 ±  1245,258  ops/s
+SerializationAvro4k.clients          thrpt    5   28469,775 ±   411,850  ops/s
+SerializationAvro4k.users            thrpt    5  390932,344 ± 41827,719  ops/s
+SerializationAvro4kDirect.clients    thrpt    5  557651,668 ±  4317,495  ops/s
+SerializationAvro4kDirect.users      thrpt    5  445721,886 ± 11015,122  ops/s
+SerializationJackson.clients         thrpt    5  257334,355 ±  3181,248  ops/s
+SerializationJackson.users           thrpt    5  314527,930 ±  7471,340  ops/s
+
 ```
 
 ## Run the benchmark locally

@@ -8,18 +8,18 @@ import kotlinx.serialization.serializer
 import org.apache.avro.Schema
 import kotlin.reflect.KClass
 
-data class Avro4kDeserializationInput(
+data class DeserializationAvro4kInput(
     val inputStream: AvroInputStream<*>
 )
 
 @OptIn(InternalSerializationApi::class)
-class Avro4kDeserializationBenchmark : DeserializationBenchmark<Avro4kDeserializationInput>() {
-    override fun createDeserializationInput(benchmarkData: BenchmarkData): Avro4kDeserializationInput {
+class DeserializationAvro4k : DeserializationBenchmark<DeserializationAvro4kInput>() {
+    override fun createDeserializationInput(benchmarkData: BenchmarkData): DeserializationAvro4kInput {
         val serializer = benchmarkData.forKlass.serializer()
         val inputStream = Avro.default.openInputStream(serializer) {
             decodeFormat = AvroDecodeFormat.Binary(benchmarkData.writeSchema, benchmarkData.readSchema)
         }.from(benchmarkData.byteArray)
-        return Avro4kDeserializationInput(
+        return DeserializationAvro4kInput(
             inputStream
         )
     }
@@ -27,7 +27,7 @@ class Avro4kDeserializationBenchmark : DeserializationBenchmark<Avro4kDeserializ
     override fun <R : Any> createReadSchema(writeSchema: Schema, forType: KClass<R>): Schema =
         Avro.default.schema(forType.serializer())
 
-    override fun <R : Any> deserialize(deserializeInput: Avro4kDeserializationInput, expectedType: KClass<R>): R {
+    override fun <R : Any> deserialize(deserializeInput: DeserializationAvro4kInput, expectedType: KClass<R>): R {
         @Suppress("UNCHECKED_CAST")
         return deserializeInput.inputStream.nextOrThrow() as R
     }

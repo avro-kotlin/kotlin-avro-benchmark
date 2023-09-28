@@ -35,10 +35,12 @@ allOpen {
 }
 benchmark {
     configurations {
-        named("main") {
+        "main" {
             iterationTime = 5
             iterationTimeUnit = "sec"
-
+            //include("Avro4k*DeserializationBenchmark")
+            //include("Avro4kDirectDeserializationBenchmark")
+            //include("JacksonDeserializationBenchmark")
         }
     }
     targets {

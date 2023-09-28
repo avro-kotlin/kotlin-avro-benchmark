@@ -9,46 +9,41 @@ import com.fasterxml.jackson.dataformat.avro.jsr310.AvroJavaTimeModule
 import com.fasterxml.jackson.dataformat.avro.schema.AvroSchemaGenerator
 import com.fasterxml.jackson.module.kotlin.kotlinModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import com.github.avrokotlin.benchmark.data.model.Clients
-import com.github.avrokotlin.benchmark.data.model.Users
-import kotlinx.benchmark.Benchmark
-import kotlinx.benchmark.Setup
 import org.apache.avro.Schema
 import java.io.ByteArrayInputStream
 import kotlin.reflect.KClass
 
-data class JacksonDeserializationBenchmarkInput(
+data class DeserializationJacksonInput(
     val reader: ObjectReader,
     val inputStream: ByteArrayInputStream
 )
 
-class JacksonDeserializationBenchmark : DeserializationBenchmark<JacksonDeserializationBenchmarkInput>() {
-    lateinit var mapper: ObjectMapper
-    lateinit var schemaMapper: ObjectMapper
-
-    @Setup
-    fun setupJackson() {
-        schemaMapper = ObjectMapper(AvroFactory())
+class DeserializationJackson : DeserializationBenchmark<DeserializationJacksonInput>() {
+    val mapper: ObjectMapper by lazy {
+        AvroMapper().registerModule(kotlinModule()).registerModule(AvroJavaTimeModule())
+    }
+    val schemaMapper: ObjectMapper by lazy {
+        ObjectMapper(AvroFactory())
             .registerKotlinModule()
             .registerModule(AvroJavaTimeModule())
-        mapper = AvroMapper().registerModule(kotlinModule()).registerModule(AvroJavaTimeModule())
     }
 
-    override fun createDeserializationInput(benchmarkData: BenchmarkData): JacksonDeserializationBenchmarkInput {
-        return JacksonDeserializationBenchmarkInput(
+
+    override fun createDeserializationInput(benchmarkData: BenchmarkData): DeserializationJacksonInput {
+        return DeserializationJacksonInput(
             mapper.reader(AvroSchema(benchmarkData.readSchema)),
             ByteArrayInputStream(benchmarkData.byteArray)
         )
     }
 
-    override fun <R: Any> createReadSchema(writeSchema: Schema, forType: KClass<R>): Schema {
+    override fun <R : Any> createReadSchema(writeSchema: Schema, forType: KClass<R>): Schema {
         val gen = AvroSchemaGenerator()
         schemaMapper.acceptJsonFormatVisitor(forType.java, gen)
         return AvroSchema(writeSchema).withReaderSchema(gen.generatedSchema).avroSchema
     }
 
     override fun <R : Any> deserialize(
-        deserializeInput: JacksonDeserializationBenchmarkInput,
+        deserializeInput: DeserializationJacksonInput,
         expectedType: KClass<R>
     ): R {
         return deserializeInput.reader.readValue(deserializeInput.inputStream, expectedType.java)
